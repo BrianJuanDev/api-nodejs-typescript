@@ -12,15 +12,6 @@
     "m:gen": "npm run typeorm migration:generate",
     "m:run": "npm run typeorm migration:run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rodrigoalejandrorios/api-nodejs-typescript.git"
-  },
-  "author": "Rodrigo Rios",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rodrigoalejandrorios/api-nodejs-typescript/issues"
-  },
   "homepage": "https://github.com/rodrigoalejandrorios/api-nodejs-typescript#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
