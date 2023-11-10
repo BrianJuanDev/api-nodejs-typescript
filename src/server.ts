@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import path from 'path';
 import { UserRouter } from "./user/user.router";
 import { ConfigServer } from "./config/config";
 import { PurchaseRouter } from "./purchase/purchase.router";
@@ -23,8 +24,13 @@ class ServerBootstrap extends ConfigServer {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.passportUse();
-    this.dbConnect();
     this.app.use(morgan("dev"));
+
+    // Establece EJS como el motor de vistas
+
+    this.app.set("view engine", "ejs");
+    this.app.set("views", path.join(__dirname, "..", "views"));
+    this.app.use(express.static(path.join(__dirname, "..", "public")));
 
     this.app.use(
       cors({
@@ -35,6 +41,7 @@ class ServerBootstrap extends ConfigServer {
     );
 
     this.app.use("/api", this.routers());
+    
     this.listen();
   }
 
@@ -66,10 +73,8 @@ class ServerBootstrap extends ConfigServer {
 
   public listen() {
     this.app.listen(this.port, () => {
-      console.log(
-        `Listen in ${this.port} :: ENV = ${this.getEnvironment("ENV")}`
-      );
-    });
+      console.log("Server listening on port " + this.port);
+    })
   }
 }
 
